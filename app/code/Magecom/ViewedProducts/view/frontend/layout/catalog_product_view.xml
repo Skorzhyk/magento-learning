@@ -1,4 +1,5 @@
-<?php
+<?xml version="1.0"?>
+<!--
 /**
  * Magecom
  *
@@ -13,12 +14,13 @@
  * to info@magecom.net so we can send you a copy immediately.
  *
  * @category Magecom
- * @package Magecom\RelatedProducts
+ * @package Magecom\ViewedProducts\etc
  * @copyright Copyright (c) ${YEAR} Magecom, Inc. (http://www.magecom.net)
  * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-\Magento\Framework\Component\ComponentRegistrar::register(
-    \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Magecom_RelatedProducts',
-    __DIR__
-);
+ */-->
+
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+    </body>
+</page>
