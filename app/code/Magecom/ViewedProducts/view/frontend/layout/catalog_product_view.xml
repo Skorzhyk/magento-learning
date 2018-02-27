@@ -21,6 +21,10 @@
 
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-
+        <referenceBlock name="product.info.upsell" remove="true"/>
+        <referenceBlock name="catalog.product.related" remove="true"/>
+        <referenceContainer name="content.aside">
+            <block class="Magecom\ViewedProducts\Block\Product\ProductList\Viewed" name="catalog.product.viewed" template="Magecom_ViewedProducts::product/list/items.phtml" />
+        </referenceContainer>
     </body>
 </page>
