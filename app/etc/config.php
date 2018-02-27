@@ -3,6 +3,7 @@ return array (
   'modules' => 
   array (
     'Magento_Store' => 1,
+    'Magecom_ViewedProducts' => 1,
     'Magento_Directory' => 1,
     'Magento_AdvancedPricingImportExport' => 1,
     'Magento_Config' => 1,
