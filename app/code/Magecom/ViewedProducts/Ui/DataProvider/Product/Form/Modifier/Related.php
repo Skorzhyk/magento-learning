@@ -84,10 +84,6 @@ class Related extends UiRelated
                     __('Add Viewed Products'),
                     $this->scopePrefix . static::DATA_SCOPE_VIEWED
                 ),
-                'modal' => $this->getGenericModal(
-                    __('Add Viewed Products'),
-                    $this->scopePrefix . static::DATA_SCOPE_VIEWED
-                ),
                 static::DATA_SCOPE_VIEWED => $this->getGrid($this->scopePrefix . static::DATA_SCOPE_VIEWED),
             ],
             'arguments' => [

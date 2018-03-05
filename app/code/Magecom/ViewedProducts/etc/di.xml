@@ -29,4 +29,8 @@
                 name="viewed_products"
                 type="Magecom\ViewedProducts\Plugin\Product\Initialization\Helper\ProductLinks" />
     </type>
+    <type name="Magento\Framework\Session\SessionManager">
+        <plugin name="set_session_start"
+                type="Magecom\ViewedProducts\Plugin\Session\SessionManager" />
+    </type>
 </config>

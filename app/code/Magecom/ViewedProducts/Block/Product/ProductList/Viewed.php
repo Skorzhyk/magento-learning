@@ -11,17 +11,19 @@ class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
      */
     protected $_itemCollection;
 
-    protected $_productCollection;
+    protected $_productLinkFactory;
 
-    public function __construct(
-        \Magento\Catalog\Block\Product\Context $context,
-        \Magento\Catalog\Model\ResourceModel\Product\Link\Product\Collection $productCollection,
-        array $data = []
-    )
-    {
-        $this->_productCollection = $productCollection;
-        parent::__construct($context, $data);
-    }
+    protected $_productRepository;
+
+    protected $_cookieManager;
+
+//    public function __construct(
+//        \Magento\Catalog\Block\Product\Context $context,
+//        array $data = []
+//    )
+//    {
+//        parent::__construct($context, $data);
+//    }
 
     /**
      * Prepare viewed items data
