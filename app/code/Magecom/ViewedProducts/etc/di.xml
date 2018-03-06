@@ -14,6 +14,7 @@
         <arguments>
             <argument name="linkTypes" xsi:type="array">
                 <item name="viewed" xsi:type="const">Magecom\ViewedProducts\Model\Product\Link::LINK_TYPE_VIEWED</item>
+                <item name="black" xsi:type="const">Magecom\ViewedProducts\Model\Product\Link::LINK_TYPE_BLACK</item>
             </argument>
         </arguments>
     </type>
@@ -21,13 +22,9 @@
         <arguments>
             <argument name="providers" xsi:type="array">
                 <item name="viewed" xsi:type="object">Magecom\ViewedProducts\Model\ProductLink\CollectionProvider\Viewed</item>
+                <item name="black" xsi:type="object">Magecom\ViewedProducts\Model\ProductLink\CollectionProvider\Black</item>
             </argument>
         </arguments>
-    </type>
-    <type name="Magento\Catalog\Model\Product\Initialization\Helper\ProductLinks">
-        <plugin sortOrder="4"
-                name="viewed_products"
-                type="Magecom\ViewedProducts\Plugin\Product\Initialization\Helper\ProductLinks" />
     </type>
     <type name="Magento\Framework\Session\SessionManager">
         <plugin name="set_session_start"

@@ -4,6 +4,7 @@ $image = 'category_page_grid';
 $class = 'viewed';
 ?>
 
+<?php if (count($items) > 0): ?>
 <div class="block-title title">
     <strong id="block-<?= /* @escapeNotVerified */ $class ?>-heading" role="heading" aria-level="2"><?= /* @escapeNotVerified */ "Along with this product are browsed" ?></strong>
 </div>
@@ -28,9 +29,9 @@ $class = 'viewed';
 
                     </div>
                 </div>
-                <?php if ($iterator == 5) { break; } ?>
                 <?= ($iterator == count($items)+1) ? '</li>' : '' ?>
             <?php endforeach ?>
         </ol>
     </div>
 </div>
+<?php endif; ?>

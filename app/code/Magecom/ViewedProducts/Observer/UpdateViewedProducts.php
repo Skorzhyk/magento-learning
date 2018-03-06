@@ -121,6 +121,8 @@ class UpdateViewedProducts implements ObserverInterface
             }
         }
 
+        $viewedIds = array_slice($viewedIds, 0, 10);
+
         $i = 1;
         foreach ($viewedIds as $id) {
             $linkProduct = $this->_productRepository->getById($id);

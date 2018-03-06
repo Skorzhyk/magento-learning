@@ -15,15 +15,12 @@ class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
 
     protected $_productRepository;
 
-    protected $_cookieManager;
-
-//    public function __construct(
-//        \Magento\Catalog\Block\Product\Context $context,
-//        array $data = []
-//    )
-//    {
-//        parent::__construct($context, $data);
-//    }
+    public function __construct(
+        \Magento\Catalog\Block\Product\Context $context,
+        array $data = [])
+    {
+        parent::__construct($context, $data);
+    }
 
     /**
      * Prepare viewed items data
@@ -59,7 +56,7 @@ class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
     /**
      * Retrieve viewed items collection
      *
-     * @return \Magento\Catalog\Model\ResourceModel\Product\Link\Product\Collection
+     * @return array|\Magento\Framework\DataObject[]
      */
     public function getItems()
     {
@@ -67,6 +64,17 @@ class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
             $this->_prepareData();
         }
 
-        return $this->_itemCollection;
+        $allItems = $this->_itemCollection->getItems();
+        if (count($allItems) <= 5) {
+            return $allItems;
+        }
+
+        $randKeys = array_rand($allItems, 5);
+        $items = [];
+        foreach ($randKeys as $key) {
+            $items[] = $allItems[$key];
+        }
+
+        return $items;
     }
 }

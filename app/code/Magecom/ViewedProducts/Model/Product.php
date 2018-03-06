@@ -67,4 +67,66 @@ class Product extends ProductModel
         $collection->joinAttributes();
         return $collection;
     }
+
+    /**
+     * Retrieve array of black products
+     *
+     * @return array
+     */
+    public function getBlackProducts()
+    {
+        if (!$this->hasBlackProducts()) {
+            $products = [];
+            $collection = $this->getBlackProductCollection();
+            foreach ($collection as $product) {
+                $products[] = $product;
+            }
+            $this->setBlackProducts($products);
+        }
+        return $this->getData('black_products');
+    }
+
+    /**
+     * Retrieve black products identifiers
+     *
+     * @return array
+     */
+    public function getBlackProductIds()
+    {
+        if (!$this->hasBlackProductIds()) {
+            $ids = [];
+            foreach ($this->getBlackProducts() as $product) {
+                $ids[] = $product->getId();
+            }
+            $this->setBlackProductIds($ids);
+        }
+        return $this->getData('black_product_ids');
+    }
+
+    /**
+     * Retrieve collection black product
+     *
+     * @return \Magento\Catalog\Model\ResourceModel\Product\Link\Product\Collection
+     */
+    public function getBlackProductCollection()
+    {
+        $collection = $this->getLinkInstance()->useBlackLinks()->getProductCollection()->setIsStrongMode();
+        $collection->setProduct($this);
+        return $collection;
+    }
+
+    /**
+     * Retrieve collection black link
+     *
+     * @return \Magento\Catalog\Model\ResourceModel\Product\Link\Collection
+     */
+    public function getBlackLinkCollection()
+    {
+        $collection = $this->getLinkInstance()->useBlackLinks()->getLinkCollection();
+        $collection->setProduct($this);
+        $collection->addLinkTypeIdFilter();
+        $collection->addProductIdFilter();
+        $collection->joinAttributes();
+        return $collection;
+    }
 }
