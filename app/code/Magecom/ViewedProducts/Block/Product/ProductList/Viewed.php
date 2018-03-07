@@ -15,13 +15,6 @@ class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
 
     protected $_productRepository;
 
-    public function __construct(
-        \Magento\Catalog\Block\Product\Context $context,
-        array $data = [])
-    {
-        parent::__construct($context, $data);
-    }
-
     /**
      * Prepare viewed items data
      *
@@ -65,14 +58,25 @@ class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
         }
 
         $allItems = $this->_itemCollection->getItems();
-        if (count($allItems) <= 5) {
-            return $allItems;
+
+        $product = $this->_coreRegistry->registry('product');
+        $blackIds = $product->getBlackProductIds();
+
+        $filteredItems = [];
+        foreach ($allItems as $item) {
+            if (array_search($item->getId(), $blackIds) === false) {
+                $filteredItems[] = $item;
+            }
         }
 
-        $randKeys = array_rand($allItems, 5);
+        if (count($filteredItems) <= 5) {
+            return $filteredItems;
+        }
+
+        $randKeys = array_rand($filteredItems, 5);
         $items = [];
         foreach ($randKeys as $key) {
-            $items[] = $allItems[$key];
+            $items[] = $filteredItems[$key];
         }
 
         return $items;
