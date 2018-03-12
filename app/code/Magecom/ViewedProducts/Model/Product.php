@@ -4,6 +4,13 @@ namespace Magecom\ViewedProducts\Model;
 
 use Magento\Catalog\Model\Product as ProductModel;
 
+/**
+ * Viewed & Black products Product Model class
+ *
+ * @category Magecom
+ * @package Magecom\ViewedProducts\Model
+ * @author  Magecom
+ */
 class Product extends ProductModel
 {
     /**

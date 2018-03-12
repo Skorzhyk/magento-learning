@@ -2,6 +2,13 @@
 
 namespace Magecom\ViewedProducts\Block\Product\ProductList;
 
+/**
+ * Viewed products on product page
+ *
+ * @category Magecom
+ * @package Magecom\ViewedProducts\Block\Product\ProductList
+ * @author  Magecom
+ */
 class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
 {
     /**
