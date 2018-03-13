@@ -31,6 +31,21 @@ class Product extends ProductModel
         return $this->getData('viewed_products');
     }
 
+    public function getViewedProductsData()
+    {
+        $products = [];
+        foreach ($this->getViewedProducts() as $product) {
+            $products[] = [
+                $product->getId() => [
+                    'frequency' => $product->getFrequency(),
+                    'range' => $product->getRange()
+                ]
+            ];
+        }
+
+        return $products;
+    }
+
     /**
      * Retrieve viewed products identifiers
      *

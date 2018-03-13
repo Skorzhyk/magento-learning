@@ -23,13 +23,41 @@ class InstallData implements InstallDataInterface
         }
 
         /**
-         * Install view product link attribute
+         * Install view product link position attribute
          */
         $data = [
             [
                 'link_type_id' => \Magecom\ViewedProducts\Model\Product\Link::LINK_TYPE_VIEWED,
                 'product_link_attribute_code' => 'position',
                 'data_type' => 'int',
+            ]
+        ];
+
+        $setup->getConnection()
+            ->insertMultiple($setup->getTable('catalog_product_link_attribute'), $data);
+
+        /**
+         * Install view product link frequency attribute
+         */
+        $data = [
+            [
+                'link_type_id' => \Magecom\ViewedProducts\Model\Product\Link::LINK_TYPE_VIEWED,
+                'product_link_attribute_code' => 'frequency',
+                'data_type' => 'int',
+            ]
+        ];
+
+        $setup->getConnection()
+            ->insertMultiple($setup->getTable('catalog_product_link_attribute'), $data);
+
+        /**
+         * Install view product link range attribute
+         */
+        $data = [
+            [
+                'link_type_id' => \Magecom\ViewedProducts\Model\Product\Link::LINK_TYPE_VIEWED,
+                'product_link_attribute_code' => 'range',
+                'data_type' => 'varchar',
             ]
         ];
 
