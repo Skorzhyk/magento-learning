@@ -64,28 +64,14 @@ class Viewed extends \Magento\Catalog\Block\Product\AbstractProduct
             $this->_prepareData();
         }
 
-        $allItems = $this->_itemCollection->getItems();
-
-        $product = $this->_coreRegistry->registry('product');
-        $blackIds = $product->getBlackProductIds();
-
-        $filteredItems = [];
-        foreach ($allItems as $item) {
-            if (array_search($item->getId(), $blackIds) === false) {
-                $filteredItems[] = $item;
-            }
+        $viewedProducts = $this->_itemCollection->getItems();
+        $position = [];
+        foreach ($viewedProducts as $viewedId => $viewedProduct) {
+            $position[$viewedId] = $viewedProduct->getPosition();
         }
 
-        if (count($filteredItems) <= 5) {
-            return $filteredItems;
-        }
+        array_multisort($position, SORT_ASC, $viewedProducts);
 
-        $randKeys = array_rand($filteredItems, 5);
-        $items = [];
-        foreach ($randKeys as $key) {
-            $items[] = $filteredItems[$key];
-        }
-
-        return $items;
+        return $viewedProducts;
     }
 }

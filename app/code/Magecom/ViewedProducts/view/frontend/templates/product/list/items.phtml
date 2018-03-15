@@ -30,6 +30,7 @@ $class = 'viewed';
                     </div>
                 </div>
                 <?= ($iterator == count($items)+1) ? '</li>' : '' ?>
+                <?php if ($iterator > 5) { break; } ?>
             <?php endforeach ?>
         </ol>
     </div>
