@@ -1,5 +1,5 @@
 <?php
-
+// UPDATE `magecom_all_viewed_products` SET `processed`=0 WHERE `processed`=1;
 namespace Magecom\ViewedProducts\Controller\Index;
 
 class Index extends \Magento\Framework\App\Action\Action
@@ -46,7 +46,7 @@ class Index extends \Magento\Framework\App\Action\Action
                 $productId = $product['id'];
 
                 // Get viewed products of current new product
-                if (array_search($productId, $updatedProducts) !== false) {
+                if (array_key_exists($productId, $updatedProducts) === false) {
                     $viewedProducts = $this->_productRepository->getById($productId)->getViewedProductsData();
                     $updatedProducts[$productId] = $viewedProducts;
                 } else {
@@ -60,7 +60,7 @@ class Index extends \Magento\Framework\App\Action\Action
                     $linkedProductId = $products[$i]['id'];
 
                     // Get viewed products of current old product
-                    if (array_search($linkedProductId, $updatedProducts) !== false) {
+                    if (array_key_exists($linkedProductId, $updatedProducts) === false) {
                         $linkedViewedProducts = $this->_productRepository->getById($linkedProductId)->getViewedProductsData();
                         $updatedProducts[$linkedProductId] = $linkedViewedProducts;
                     } else {
@@ -69,13 +69,12 @@ class Index extends \Magento\Framework\App\Action\Action
 
                     $linkedBlackList = $this->_productRepository->getById($linkedProductId)->getBlackProductIds();
 
-                    if (array_search($productId, $linkedBlackList) !== false) {
-                        if (array_search($productId, $linkedViewedProducts) === false) {
-                            $linkedViewedProducts[] = [
-                                $productId => [
-                                    'frequency' => 0,
-                                    'range' => 0
-                                ]
+                    // Update current new product in current old product viewed products list
+                    if (array_search($productId, $linkedBlackList) === false) {
+                        if (array_key_exists($productId, $linkedViewedProducts) === false) {
+                            $linkedViewedProducts[$productId] = [
+                                'frequency' => 0,
+                                'range' => 0
                             ];
                         }
 
@@ -85,18 +84,17 @@ class Index extends \Magento\Framework\App\Action\Action
                         $updatedProducts[$linkedProductId] = $linkedViewedProducts;
                     }
 
-                    if (array_search($linkedProductId, $blackList) !== false) {
-                        if (array_search($linkedProductId, $viewedProducts) === false) {
-                            $linkedViewedProducts[] = [
-                                $linkedProductId => [
-                                    'frequency' => 0,
-                                    'range' => 0
-                                ]
+                    // Update current old product in current new product viewed products list
+                    if (array_search($linkedProductId, $blackList) === false) {
+                        if (array_key_exists($linkedProductId, $viewedProducts) === false) {
+                            $viewedProducts[$linkedProductId] = [
+                                'frequency' => 0,
+                                'range' => 0
                             ];
                         }
 
                         $frequency = $viewedProducts[$linkedProductId]['frequency']++;
-                        $viewedProducts[$linkedProductId]['range'] = round(($linkedViewedProducts[$linkedProductId]['range'] * $frequency + ($key - $i)) / ($frequency + 1), 3);
+                        $viewedProducts[$linkedProductId]['range'] = round(($viewedProducts[$linkedProductId]['range'] * $frequency + ($key - $i)) / ($frequency + 1), 3);
                     }
                 }
 
@@ -153,10 +151,10 @@ class Index extends \Magento\Framework\App\Action\Action
      * Set new viewed products on particular product
      *
      * @param $product
-     * @param $viewedProductsData
+     * @param $viewedProducts
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function updateProductLinks($product, $viewedProductsData)
+    public function updateProductLinks($product, $viewedProducts)
     {
         $allProductLinks = $product->getProductLinks();
         $productLinks = [];
@@ -165,21 +163,46 @@ class Index extends \Magento\Framework\App\Action\Action
                 $productLinks[] = $link;
             }
         }
-
+        if ($product->getId() == '14') {
+            ob_start();
+            var_dump($viewedProducts);
+            $output = ob_get_clean();
+            file_put_contents('../var/log/log.html', $output, FILE_APPEND);
+        }
+        $viewedProducts = $this->rangeViewedProducts($viewedProducts);
+        if ($product->getId() == '14') {
+            ob_start();
+            var_dump($viewedProducts);
+            $output = ob_get_clean();
+            file_put_contents('../var/log/log.html', $output, FILE_APPEND);
+        }
         $i = 1;
-        foreach ($viewedProductsData as $viewedId => $viewedData) {
-            $linkedProduct = $this->_productRepository->getById($viewedId);
+        foreach ($viewedProducts as $viewedProduct) {
+            $linkedProduct = $this->_productRepository->getById($viewedProduct['id']);
             $newLink = $this->_productLinkFactory->create()
                 ->setSku($product->getSku())
                 ->setLinkedProductSku($linkedProduct->getSku())
                 ->setLinkType('viewed')
-                ->setFrequency($viewedProductsData['frequency'])
-                ->setRange($viewedProductsData['range'])
+                ->setFrequency($viewedProduct['frequency'])
+                ->setRange($viewedProduct['range'])
                 ->setPosition($i);
             $productLinks[] = $newLink;
             $i++;
         }
 
         $product->setProductLinks($productLinks)->save();
+    }
+
+    public function rangeViewedProducts($viewedProducts)
+    {
+        $priority = [];
+        foreach ($viewedProducts as $viewedId => $viewedData) {
+            $viewedProducts[$viewedId]['id'] = $viewedId;
+            $priority[$viewedId] = round($viewedData['frequency'] / $viewedData['range'], 3);
+        }
+
+        array_multisort($priority, SORT_DESC, $viewedProducts);
+
+        return $viewedProducts;
     }
 }

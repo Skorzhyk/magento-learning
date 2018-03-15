@@ -35,11 +35,9 @@ class Product extends ProductModel
     {
         $products = [];
         foreach ($this->getViewedProducts() as $product) {
-            $products[] = [
-                $product->getId() => [
-                    'frequency' => $product->getFrequency(),
-                    'range' => $product->getRange()
-                ]
+            $products[$product->getId()] = [
+                'frequency' => $product->getFrequency(),
+                'range' => $product->getRange()
             ];
         }
 
