@@ -1,0 +1,8 @@
+<!-- ko if: isDisplayedPackagingTotal() -->
+<tr class="totals packaging excl">
+    <th class="mark" colspan="1" scope="row" data-bind="text: packaging"></th>
+    <td class="amount">
+        <span class="price" data-bind="text: getPackagingTotal(), attr: {'data-th': packaging}"></span>
+    </td>
+</tr>
+<!-- /ko -->

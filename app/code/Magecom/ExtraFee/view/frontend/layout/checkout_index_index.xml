@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magecom
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@magecom.net so we can send you a copy immediately.
+ *
+ * @category Magecom
+ * @package Magecom\ExtraFee\view\frontend\layout
+ * @copyright Copyright (c) ${YEAR} Magecom, Inc. (http://www.magecom.net)
+ * @license  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="packaging" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Magecom_ExtraFee/js/view/checkout/cart/totals/packaging</item>
+                                                            <item name="sortOrder" xsi:type="string">20</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Magecom_ExtraFee/checkout/cart/totals/packaging</item>
+                                                                <item name="title" xsi:type="string" translate="true">Packaging</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <!--<item name="cart_items" xsi:type="array">-->
+                                                    <!--<item name="children" xsi:type="array">-->
+                                                        <!--<item name="details" xsi:type="array">-->
+                                                            <!--<item name="children" xsi:type="array">-->
+                                                                <!--<item name="subtotal" xsi:type="array">-->
+                                                                    <!--<item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>-->
+                                                                <!--</item>-->
+                                                            <!--</item>-->
+                                                        <!--</item>-->
+                                                    <!--</item>-->
+                                                <!--</item>-->
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
