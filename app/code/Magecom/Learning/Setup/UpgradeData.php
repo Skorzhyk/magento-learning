@@ -36,13 +36,13 @@ class UpgradeData implements UpgradeDataInterface
      */
     public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-        if (version_compare($context->getVersion(), '0.0.2') < 0) {
-            $items = $this->_modelItemsFactory->create()->getCollection();
-
-            foreach ($items as $elem) {
-                $elem->delete();
-            }
-        }
+//        if (version_compare($context->getVersion(), '0.0.2') < 0) {
+//            $items = $this->_modelItemsFactory->create()->getCollection();
+//
+//            foreach ($items as $elem) {
+//                $elem->delete();
+//            }
+//        }
 
     }
 }

@@ -78,19 +78,13 @@
             </action>
         </massaction>
 
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="template" xsi:type="string">ui/grid/toolbar</item>
-            </item>
-        </argument>
-
         <bookmark name="bookmarks">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/bookmarks/bookmarks</item>
                     <item name="displayArea" xsi:type="string">dataGridActions</item>
                     <item name="storageConfig" xsi:type="array">
-                        <item name="saveUrl" xsi:type="url" path="*/*/save"/>
+                        <!--<item name="saveUrl" xsi:type="url" path="*/*/save"/>-->
                         <item name="deleteUrl" xsi:type="url" path="*/*/delete"/>
                         <item name="namespace" xsi:type="string">magecom_learning_items_listing</item>
                     </item>
