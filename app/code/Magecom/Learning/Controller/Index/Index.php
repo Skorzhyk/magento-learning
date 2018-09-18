@@ -67,6 +67,8 @@ class Index extends Action
 
         $resultPage = $this->_resultPageFactory->create();
 
+        $testLine = 11;
+
         return $resultPage;
     }
 }
