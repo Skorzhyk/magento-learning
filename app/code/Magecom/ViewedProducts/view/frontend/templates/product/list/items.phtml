@@ -1,0 +1,38 @@
+<?php
+$items = $block->getItems();
+$image = 'category_page_grid';
+$class = 'viewed';
+?>
+
+<?php if (count($items) > 0): ?>
+<div class="block-title title">
+    <strong id="block-<?= /* @escapeNotVerified */ $class ?>-heading" role="heading" aria-level="2"><?= /* @escapeNotVerified */ "Along with this product are browsed" ?></strong>
+</div>
+<div class="block-content content" aria-labelledby="block-<?= /* @escapeNotVerified */ $class ?>-heading">
+    <div class="products wrapper grid products-grid products-<?= /* @escapeNotVerified */ $class ?>">
+        <ol class="products list items product-items">
+            <?php $iterator = 1; ?>
+            <?php foreach ($items as $_item): ?>
+                <?php $available = ''; ?>
+                <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
+                <div class="product-item-info <?= /* @escapeNotVerified */ $available ?>">
+                    <?= /* @escapeNotVerified */ '<!-- ' . $image . '-->' ?>
+                    <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product photo product-item-photo">
+                        <?= $block->getImage($_item, $image)->toHtml() ?>
+                    </a>
+                    <div class="product details product-item-details">
+                        <strong class="product name product-item-name"><a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>">
+                                <?= $block->escapeHtml($_item->getName()) ?></a>
+                        </strong>
+
+                        <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+
+                    </div>
+                </div>
+                <?= ($iterator == count($items)+1) ? '</li>' : '' ?>
+                <?php if ($iterator > 5) { break; } ?>
+            <?php endforeach ?>
+        </ol>
+    </div>
+</div>
+<?php endif; ?>
